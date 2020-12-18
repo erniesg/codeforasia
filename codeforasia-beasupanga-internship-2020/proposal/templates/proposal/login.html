@@ -1,0 +1,31 @@
+{% extends 'proposal/base.html' %}
+
+{% block header %}
+    <h1 class="text-center my-5">Login</h1>
+{% endblock %}
+
+{% block body %}
+    <div class="login">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %} {{ message.tags }} {% endif %}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %} 
+
+        <form class="mb-5" method="post" action="{% url 'proposal_login' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="inputUsername" class="form-label">Username</label>
+                <input type="text" class="form-control" id="inputUsername" name="username">
+            </div>
+            <div class="mb-3">
+                <label for="inputPassword" class="form-label">Password</label>
+                <input type="password" class="form-control" id="inputPassword" name="password">
+            </div>
+            <input class="btn btn-primary mt-4" type="submit" value="Login" />
+        </form>
+        <small>Don't have an account? <a href="{% url 'proposal_register' %}">Register now.</a></small>
+    </div>
+{% endblock %}

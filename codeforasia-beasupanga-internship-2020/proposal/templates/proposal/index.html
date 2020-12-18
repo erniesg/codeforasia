@@ -1,0 +1,73 @@
+{% extends 'proposal/base.html' %}
+
+{% block header %}
+    <h1 class="text-center my-5">Project Proposals</h1>
+   
+{% endblock %}
+
+{% block body %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags %} {{ message.tags }} {% endif %}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %} 
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn text-center" data-bs-toggle="modal" data-bs-target="#proposalModal">
+        Create New Proposal
+    </button>
+  
+    <!-- Modal -->
+    <div class="modal fade" id="proposalModal" tabindex="-1" aria-labelledby="proposalModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="proposalModalLabel">File a new project proposal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="projectTitleInput" class="form-label">Project Title</label>
+                            {{ form.title }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="paxInput" class="form-label">Cost per pax (USD)</label>
+                            {{ form.cost }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="aboutTextarea" class="form-label">About the Project</label>
+                            {{ form.about }}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Project Title</th>
+                <th scope="col">Cost per pax</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for proposal in proposals %}
+                <tr>    
+                    <td>{{ proposal.title }}</td>
+                    <td>{{ proposal.cost_pax }}</td>
+                    <td>{{ proposal.status }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

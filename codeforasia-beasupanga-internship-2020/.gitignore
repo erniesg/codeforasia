@@ -1,0 +1,6 @@
+# MacOS
+.DS_Store
+
+# Virtual Environments
+venv/
+venv/*
